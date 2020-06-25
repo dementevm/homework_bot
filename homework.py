@@ -46,6 +46,7 @@ def send_message(message):
 
 
 def main():
+    send_message('Все работает')
     current_timestamp = int(time.time())
 
     while True:
