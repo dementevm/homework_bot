@@ -46,11 +46,11 @@ def send_message(message):
 
 
 def main():
-    send_message('Все работает')
     current_timestamp = int(time.time())
 
     while True:
         try:
+            print('Everything is OK')
             new_homework = get_homework_statuses(current_timestamp)
             if new_homework.get('homeworks'):
                 send_message(
