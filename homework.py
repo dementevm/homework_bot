@@ -3,6 +3,7 @@ import requests
 import telegram
 import time
 from dotenv import load_dotenv
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
 load_dotenv()
 
@@ -47,10 +48,11 @@ def send_message(message):
 
 def main():
     current_timestamp = int(time.time())
-
+    updater = Updater(os.getenv('TELEGRAM_TOKEN'))
+    dispatcher = updater.dispatcher
+    dispatcher.add_handler(CommandHandler("help", how_are_you))
     while True:
         try:
-            print('Everything is OK')
             new_homework = get_homework_statuses(current_timestamp)
             if new_homework.get('homeworks'):
                 send_message(
@@ -63,6 +65,10 @@ def main():
             print(f'Бот упал с ошибкой: {e}')
             time.sleep(5)
             continue
+
+
+def how_are_you(update: Update, context: CallbackContext):
+    update.message.reply_text("I'm OK")
 
 
 if __name__ == '__main__':
